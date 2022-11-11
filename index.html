@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="noPrint" id="toshow">
+        <div id="recent">
+
+            <div id="user-info"></div>
+
+        </div>
+        <div id="list">
+        </div>
+        <div id="status">
+        弹幕点歌未启用
+        </div>
+    </div>
+    
+    <div class="log" id = "danmu">
+    </div>
+    
+    <div class="noPrint">
+        <div id="control">
+        <button class="func" onclick = "bot.songlist.enableAddSongs()"><img src="icons/play.svg"/></button>
+        <button class="func" onclick = "bot.songlist.disableAddSongs()" disabled><img src="icons/pause.svg"/></button>
+        <button class="func" onclick = "bot.songlist.unSelect()"><img src="icons/eye-slash.svg"/></button>
+        <button class="func" onclick = "bot.songlist.moveTop()"><img src="icons/angles-up.svg"/></button>
+        <button class="func" onclick = "bot.songlist.moveUp()"><img src="icons/angle-up.svg"/></button>
+        <button class="func" onclick = "bot.songlist.moveDown()"><img src="icons/angle-down.svg"/></button>
+        <button class="func" onclick = "bot.songlist.moveBottom()"><img src="icons/angles-down.svg"/></button>
+        <button class="func" onclick = "archiveLog()"><img src="icons/print.svg"/></button>
+        <br>
+        
+        <!--<button class="func" onclick = ""><img src="icons/magnifying-glass.svg"/></button>-->
+        <input type="text" id="textbox">
+        <button class="func" onclick = "bot.songlist.addSong(bot.songlist.textboxElement.value,true)" style="user-select: none;"><img src="icons/plus.svg"/></button>
+        <button class="func" onclick = "bot.songlist.removeSong()"><img src="icons/minus.svg"/></button>
+        <button id="submit" class="func" orig-content="Submit" onclick = "bot.songlist.removeSong()"><img src="icons/magnifying-glass.svg"/></button>
+        <input type="tel" id="user-code" value="868222308"> 
+        </div>
+    </div>
+
+    <div class="log" id = "gift">
+    </div>
+
+    <div class="log" id = "misc">
+    </div>
+    <div>
+        <div id="status-message" style="display: inline;"></div>
+    <script>
+        (function(){
+            // Save the original method in a private variable
+            //var _privateLog = console.log;
+            // Redefine console.log method with a custom function
+            console.log = function (message,place="gift") {
+                let logbox = document.getElementById(place);
+                // Here execute something with the given message or arguments variable
+                logbox.insertAdjacentHTML("beforeend", `> ${message}<br>`);
+                logbox.scrollTop = logbox.scrollHeight;
+                /**
+                 Note: If you want to preserve the same action as the original method does
+                then use the following line :
+            
+                we use apply to invoke the method on console using the original arguments. 
+                Simply calling _privateLog(message) would fail because LOG depends on the console
+                */
+                //_privateLog.apply(console, arguments);
+            };
+        })();
+    </script>
+    <script src="scripts/decode.js"></script>
+    <script src="scripts/webSocket.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/brotli_decompress.min.js" defer=""></script>
+    <script src="scripts/main.min.js" defer=""></script>
+</body>
+</html>
